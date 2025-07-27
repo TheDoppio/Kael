@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kael Bashthroat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Uncial+Antiqua&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Stardos+Stencil&display=swap');
+        .kael-title {
+          font-family: 'Cinzel', serif;
+          font-size: 48px;
+          text-align: center;
+          color: #FFD700;
+          text-shadow:
+              0 0 5px #8B0000,
+              0 0 10px #B22222,
+              0 0 20px #DC143C,
+              2px 2px 3px #000;
+          animation: flicker 3s infinite alternate;
+          margin-top: 20px;
+          letter-spacing: 2px;
+          background: linear-gradient(90deg, #FFD700, #B22222, #FFD700);
+          background-size: 400% 400%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: flame 5s ease infinite, flicker 2s infinite alternate;
+        }
+
+        @keyframes flicker {
+          0%   { text-shadow: 0 0 5px #8B0000, 0 0 10px #B22222, 0 0 20px #DC143C, 2px 2px 3px #000; }
+          50%  { text-shadow: 0 0 10px #FF4500, 0 0 20px #FF6347, 0 0 30px #FFD700, 2px 2px 5px #000; }
+          100% { text-shadow: 0 0 6px #B22222, 0 0 12px #8B0000, 0 0 24px #DC143C, 1px 1px 2px #000; }
+        }
+
+        @keyframes flame {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #8B4513, #A0522D, #D2B48C);
+            background-size: 400% 400%;
+            animation: backgroundShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+        }
+        
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .letter-container {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+            perspective: 1000px;
+            overflow: visible;
+        }
+        
+        .letter-envelope {
+            width: 500px;
+            height: 280px;
+            background: linear-gradient(135deg, #F5DEB3, #DEB887, #D2B48C);
+            border: 3px solid #8B4513;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 
+                0 10px 20px rgba(0,0,0,0.3),
+                inset 0 2px 4px rgba(255,255,255,0.2),
+                inset 0 -2px 4px rgba(0,0,0,0.1);
+            transform-style: preserve-3d;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .letter-envelope:hover {
+            transform: rotateY(5deg) rotateX(2deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+        
+        .letter-envelope.shaking {
+            animation: shake 1.4s ease-in-out;
+        }
+        
+        .letter-envelope.opening {
+            animation: openEnvelope 1.2s ease-out forwards;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+            8% { transform: translateX(-1.2px) translateY(0.3px) rotate(-0.4deg); }
+            18% { transform: translateX(2.1px) translateY(-0.8px) rotate(0.7deg); }
+            28% { transform: translateX(-2.8px) translateY(0.5px) rotate(-0.3deg); }
+            38% { transform: translateX(1.9px) translateY(-0.2px) rotate(0.5deg); }
+            48% { transform: translateX(-1.1px) translateY(0.7px) rotate(-0.6deg); }
+            58% { transform: translateX(2.3px) translateY(-0.1px) rotate(0.2deg); }
+            68% { transform: translateX(-1.7px) translateY(0.4px) rotate(-0.4deg); }
+            78% { transform: translateX(0.9px) translateY(-0.3px) rotate(0.3deg); }
+            88% { transform: translateX(-0.6px) translateY(0.2px) rotate(-0.2deg); }
+            95% { transform: translateX(0.3px) translateY(-0.1px) rotate(0.1deg); }
+        }
+        
+        @keyframes openEnvelope {
+            0% { transform: rotateY(0deg) scale(1); }
+            50% { transform: rotateY(10deg) scale(1.05); }
+            100% { transform: rotateY(0deg) scale(1) translateY(-20px); opacity: 0.3; }
+        }
+        
+        .wax-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #DC143C, #B22222, #8B0000);
+            border-radius: 50%;
+            border: 4px solid #660000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 8px rgba(0,0,0,0.4),
+                inset 0 2px 4px rgba(255,255,255,0.2),
+                inset 0 -2px 4px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        
+        .wax-seal:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 
+                0 6px 12px rgba(0,0,0,0.5),
+                inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+        
+        .wax-seal.pulsing {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 
+                    0 4px 8px rgba(0,0,0,0.4),
+                    inset 0 2px 4px rgba(255,255,255,0.2),
+                    inset 0 -2px 4px rgba(0,0,0,0.3),
+                    0 0 0 rgba(220, 20, 60, 0);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.05);
+                box-shadow: 
+                    0 6px 12px rgba(0,0,0,0.5),
+                    inset 0 2px 4px rgba(255,255,255,0.3),
+                    inset 0 -2px 4px rgba(0,0,0,0.4),
+                    0 0 20px rgba(220, 20, 60, 0.3);
+            }
+        }
+        
+        .wax-seal.breaking {
+            animation: breakSeal 0.8s ease-out forwards;
+        }
+        
+        @keyframes breakSeal {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2) rotate(10deg); }
+            100% { transform: translate(-50%, -50%) scale(0) rotate(360deg); opacity: 0; }
+        }
+        
+        .seal-symbol {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Uncial Antiqua', cursive;
+            font-size: 24px;
+            color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+        
+        .letter-content {
+            position: absolute;
+            top: 0;
+            left: 0px;
+            width: 100%;
+            max-width: 500px;
+            height: 550px; /* Altezza fissa per far scorrere */
+            background: linear-gradient(to bottom, #FFF8DC, #F5F5DC, #FFFACD);
+            border: 2px solid #8B4513;
+            border-radius: 8px;
+            padding: 30px;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(50px) scale(0.8);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 15px 30px rgba(0,0,0,0.3),
+                inset 0 1px 3px rgba(255,255,255,0.5);
+            z-index: 5;
+            overflow-y: auto; /* Abilita lo scroll verticale */
+            overflow-x: hidden; /* Niente scroll orizzontale */
+            word-wrap: break-word;
+            scroll-behavior: smooth;
+            pointer-events: none;
+        }
+
+        
+        .letter-content.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        
+        .letter-header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #8B4513;
+            padding-bottom: 15px;
+        }
+        
+        .letter-title {
+            font-family: 'Uncial Antiqua', cursive;
+            font-size: 22px;
+            color: #8B0000;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .letter-date {
+            font-size: 14px;
+            color: #8B4513;
+            font-style: italic;
+        }
+        
+        .letter-body {
+            line-height: 1.8;
+            color: #2F4F4F;
+            font-size: 16px;
+            text-align: justify;
+            margin-bottom: 25px;
+        }
+        
+        .letter-body p {
+            margin-bottom: 15px;
+            text-indent: 20px;
+        }
+        
+        .letter-signature {
+            text-align: right;
+            font-style: italic;
+            color: #8B4513;
+            font-size: 18px;
+            margin-top: 20px;
+            border-top: 1px solid #D2B48C;
+            padding-top: 15px;
+        }
+        
+        .ornament {
+            text-align: center;
+            font-size: 20px;
+            color: #8B4513;
+            margin: 15px 0;
+        }
+        
+        .fold-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .fold-lines::before,
+        .fold-lines::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(139, 69, 19, 0.3), rgba(139, 69, 19, 0.1));
+            box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fold-lines::before {
+            top: 0;
+            left: 0;
+            height: 305px;
+            transform: rotate(305deg);
+            transform-origin: top left;
+        }
+        
+        .fold-lines::after {
+            top: 0;
+            right: 0;
+            height: 305px;
+            transform: rotate(55deg);
+            transform-origin: top right;
+        }
+        
+        .interaction-hint {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #8B4513;
+            text-align: center;
+            opacity: 0.8;
+            font-style: italic;
+            animation: fadeInOut 3s ease-in-out infinite;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes corsa{
+            0%{ 
+                left: 0%; 
+                opacity: 0;
+                clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+            }
+            1%{
+                left: 2%; 
+                opacity: 1;
+                clip-path: polygon(80% 0%, 100% 0%, 100% 100%, 80% 100%);
+            }
+            1.5%{
+                left: 4%; 
+                opacity: 1;
+                clip-path: polygon(60% 0%, 100% 0%, 100% 100%, 60% 100%);
+            }
+            2%{
+                left: 6%; 
+                opacity: 1;
+                clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 40% 100%);
+            }
+            2.5%{
+                left: 7%; 
+                opacity: 1;
+                clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 20% 100%);
+            }
+            3%{
+                left: 8%; 
+                opacity: 1;
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            }
+            37.5%{
+                left: 87%; 
+                opacity: 1;
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            }
+            38%{
+                left: 88%; 
+                opacity: 1;
+                clip-path: polygon(0% 0%, 80% 0%, 80% 100%, 0% 100%);
+            }
+            38.5%{
+                left: 89%; 
+                opacity: 1;
+                clip-path: polygon(0% 0%, 60% 0%, 60% 100%, 0% 100%);
+            }
+            39%{
+                left: 90%; 
+                opacity: 1;
+                clip-path: polygon(0% 0%, 40% 0%, 40% 100%, 0% 100%);
+            }
+            39.5%{
+                left: 91%; 
+                opacity: 1;
+                clip-path: polygon(0% 0%, 20% 0%, 20% 100%, 0% 100%);
+            }
+            40%{
+                left: 92%; 
+                opacity: 1;
+                clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+            }
+            100%{
+                left: 90%; 
+                opacity: 0;
+                clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+            }
+        }
+        .gif{
+            animation: corsa 8s linear infinite;
+            position: absolute;
+            top: 30px;
+            animation-delay: 3s;
+            opacity: 0;
+        }
+        /* Animazione per le lettere del titolo */
+        .letter {
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .letter.continuous-animation {
+            animation: continuousExplode 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        }
+
+        @keyframes continuousExplode {
+            0%, 10% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            15% {
+                transform: translateX(var(--fly-x, 0)) translateY(var(--fly-y, 0)) rotate(var(--fly-rotate, 0deg));
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateX(calc(var(--fly-x, 0) * 1.5)) translateY(calc(var(--fly-y, 0) * 1.2)) rotate(calc(var(--fly-rotate, 0deg) * 2));
+                opacity: 0.9;
+            }
+            35% {
+                transform: translateX(var(--land-x, 0)) translateY(var(--land-y, 0)) rotate(var(--land-rotate, 0deg));
+                opacity: 1;
+            }
+            45%, 85% {
+                transform: translateX(var(--land-x, 0)) translateY(var(--land-y, 0)) rotate(var(--land-rotate, 0deg));
+                opacity: 1;
+            }
+            95%, 100% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        .Citazioni{
+            background-color: rgb(55 163 31 / 30%);
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+            width: 370px;
+            margin: 0px auto;
+            font-family: 'Sans serif', italic;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 85%; background-color: #f5e3cb; margin: 0 auto; border: 3px solid brown; border-radius: 10px; padding: 20px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);">  
+        <div>
+<h1 id="main-title" style="text-align: center; font-size: 50px; font-family: 'Cinzel', serif; color: #8B4513; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); letter-spacing: 1px; top: -20px; position: relative;">
+                    <span class="letter" data-letter="K">K</span>
+                    <span class="letter" data-letter="A">A</span>
+                    <span class="letter" data-letter="E">E</span>
+                    <span class="letter" data-letter="L">L</span>
+                    <span class="letter space"> </span>
+                    <span class="letter" data-letter="B">B</span>
+                    <span class="letter" data-letter="A">A</span>
+                    <span class="letter" data-letter="S">S</span>
+                    <span class="letter" data-letter="H">H</span>
+                    <span class="letter" data-letter="T">T</span>
+                    <span class="letter" data-letter="H">H</span>
+                    <span class="letter" data-letter="R">R</span>
+                    <span class="letter" data-letter="O">O</span>
+                    <span class="letter" data-letter="A">A</span>
+                    <span class="letter" data-letter="T">T</span>
+                </h1></h1>
+            <div style="width: 85.4%; background-image: url(https://i.imgur.com/TXfBsX6.png); position: absolute; top: 45px; height: 100px; margin: 0 auto; left:7.3%;">
+            </div>
+            <div style="margin-top: 150px;">
+            <img src="https://i.imgur.com/muLAzwI.png" style="width: 500px; display: block; margin: 0 auto; margin-bottom: 20px;">
+            <img src="https://i.imgur.com/VuMmzWX.png" style="width: 652px; display: block; margin: 0 auto; margin-bottom: 20px; z-index: 10; margin-top:-580px;">
+            </div>
+            <div style="text-align: center;">
+                <p>Razza: Mezzelfo | Età: 28 Anni | Sesso: M</p>
+                <p>Cittadinanza: Dirhae | Allineamento: CN</p>
+                <p>Altezza: 180 cm| Peso: 88 kg</p>
+            </div>
+                <div style="width:50%; margin: 0 auto; margin-top: 50px;" >
+                <img src="https://i.imgur.com/xvKPUub.png" style="width: 100%;"> 
+                </div>
+                    <div style="text-align: justify; width: 90%; margin-left: 5%;">
+                        <p>«La storia mia, dici? Sei curioso, eh? Come biasimarti, chi non vorrebbe ascoltare un bell'uomo come me?» <i>ride, gli sorride e guarda negli occhi l'avventore.</i>
+                         Te la racconto volentieri, fratello… ma solo se mi offri un altro boccale.
+                         ...Ah, bravo, così si fa.»
+                            <br>
+                        <i>sorseggia, poi si appoggia con i gomiti al tavolo e guarda il vuoto davanti a sé, come se lì ci fosse ancora un campo da zappare</i><br>
+                            <br>«Sono nato a Narvick, non in mezzo alla città, ma fuori dalle mura. Era un posto talmente piccolo che se scoreggiavi in piazza, se ce ne fosse stata una, la gente ti faceva l’applauso perché almeno era un po’ di vento. Mio padre era un contadino, mia madre un’elfa che non ci ha pensato due volte a darsela a gambe con un qualche damerino coi pantaloni troppo stretti e le tasche troppo larghe. Avevo tre anni, non mi ricordo manco la faccia... ma ogni tanto, sai, mi viene in sogno. Odore di lavanda e una risata leggera. Puff. Poi sparisce, come tutto il resto.<br><br>
+                            <div style="margin-top: 20px;">
+                                <img src="https://i.imgur.com/J9RmJiQ.png" style="width: 350px; display: block; margin: 0 auto; margin-bottom: 10px;">
+                                <p class="Citazioni"><i>Questa era lei, o almeno quel che mi ricordo. L'ho disegnata io? Hai visto come sono bravo?!</i></p>
+                        Mio padre? Eh… era un uomo dritto, come un palo, e altrettanto duro. M’ha cresciuto da solo, e me l’ha insegnato tutto: seminare, potare, arare, e bestemmiare quando non pioveva da settimane. Ma la parte elfica… gli dava fastidio. Mi guardava le orecchie, e ci vedeva lei. Una sera, dopo aver bevuto troppo vino, m’ha preso il coltellaccio e… zac.» <i>indica la punta mozza dell’orecchio con un sorrisetto storto</i> «Diceva che così gli ricordavo meno quella cortigiana elfica. Ma oh, non gliene voglio. Il cuore gli pesava più del raccolto d’inverno.»<br><br><img src="https://i.imgur.com/vdisQ1z.png" style="width: 350px; display: block; margin: 0 auto; margin-bottom: 10px;">
+                                <p class="Citazioni"><i>Il suo nome? Si chiamava Jarin.</i></p>
+                        «Ci campavamo di barbabietole, noi. Quelle maledette e bellissime radici... il loro colore è il sangue della mia infanzia. Ho imparato ad amarle, a conoscerle, a capirle. Sai che le barbabietole crescono meglio se gli parli? Perché ca**o stai ridendo? È vero. Le mie mi ascoltavano. E io parlavo tanto. Forse troppo. Ma in fondo, se non parli con la terra, con chi devi parlare?»<br><br>
+                                <img src="https://i.imgur.com/FBHwDzQ.png" style="width: 350px; display: block; margin: 0 auto; margin-bottom: 10px;">
+                                <p class="Citazioni"><i>Da piccolo ero sempre dietro a zappare, ma è qualcosa che ti forma.</i></p>
+                        «Crescevo, e la terra lentamente moriva. Il raccolto calava, i soldi pure. Il nobile proprietario del campo alzava l’affitto ogni stagione. Così un giorno prendo le gambe e me ne vado a Dirhae, alla taverna... questa qui, sì, proprio il Daoine Inn. E lì ho scoperto il “Tribunale”: l’arena dove puoi picchiare e farti picchiare, senza che nessuno faccia troppe domande. Ho iniziato a combattere. Non ero il più forte, ma... io non cadevo mai due volte di fila. Questo mi ha fatto notare. E poi, parlavo. Parlo sempre, lo so. Ma le parole, quando la vita te le leva a calci, diventano preziose.»<br><br>
+                                <img src="https://i.imgur.com/pahfwxA.png" style="width: 350px; display: block; margin: 0 auto; margin-bottom: 10px;">
+                                <p class="Citazioni"><i>Mi ricordo quanti pugni ho preso! Ha-ha! Ma com'è che si dice? Non si finsice mai di picchiare!</i></p>
+                        <i>Si ferma un attimo. Il sorriso si spegne un po’.</i>
+                        «Poi papà si è ammalato. Non poteva più lavorare. E allora zappavo io per due. Lavoravo nei campi la mattina, combattevo la sera. Mi svenavo per comprargli medicine che sapevano più di pietà che di cura. Alla fine è morto tra le mie braccia. E sai la parte bella?» <i>Passa una lettera al suo compagno di bevute.  </i>
+</p>
+                    </div>
+        </div>
+    <div class="letter-container" style="margin: 0 auto; margin-top: 50px;">
+        <div class="letter-envelope" id="envelope">
+            <div class="fold-lines"></div>
+            <div class="wax-seal" id="seal">
+                <div class="seal-symbol">T</div>
+            </div>
+        </div>
+        
+        <div class="interaction-hint" id="hint">
+            Clicca sul sigillo per aprire la missiva
+        </div>
+        
+        <div class="letter-content" id="letter">
+            <div class="letter-header">
+                <div class="letter-title">Cessazione immediata del contratto di conduzione agricola e rilascio dell’immobile</div>
+                <div class="letter-date">Narvick, giorno 14 di Gerran, Anno 2024</div>
+            </div>
+            
+            <div class="letter-body">
+                <p>Al signor Kael Bashthroat,<br>
+                in qualità di occupante della tenuta rurale n° 47, loc. Narvick<br>
+                </p>
+
+                <p>Signor Bashthroat,<br>
+                mi rincresce doverLe comunicare, con la presente, la cessazione immediata e irrevocabile del diritto di soggiorno e utilizzo delle terre e dell’abitazione rurale da Lei attualmente occupate presso la tenuta di mia proprietà.</p>
+
+                <p>Tale decisione giunge a seguito di ripetute inadempienze economiche, segnalate più volte dal mio intendente senza che vi sia stata, da parte Sua, alcuna risoluzione concreta o proposta di saldo. Mi si concede anche notare che la recente scomparsa del Suo genitore, il compianto Jarin Bashthroat, non modifica i termini contrattuali, né alleggerisce gli obblighi a cui è tenuto ogni conduttore.</p>
+
+                <p>Capisco che la perdita di un padre possa pesare sul cuore… ma i debiti non si seppelliscono con i morti.</p>
+
+                <p>In virtù di quanto sopra, Le intimo di sgomberare l’immobile entro e non oltre tre giorni dalla ricezione di questa lettera. Qualora ciò non avvenisse, sarò costretto ad autorizzare le Guardie della Tenuta ad eseguire lo sfratto con l’uso della forza, e a sequestrare ogni bene mobile presente nella proprietà per compensare, almeno in parte, i crediti non riscossi.</p>
+
+                <p>Qualsiasi coltivazione in atto verrà considerata proprietà del Casato Thorn, e ogni raccolto ritenuto parte integrante dell’indennizzo spettante.</p>
+
+                <p>Mi auguro, per il Suo onore personale, che voglia comportarsi in modo dignitoso, evitando scene indecorose o tentativi di resistenza che sarebbero… poco eleganti e soprattutto, del tutto inutili.</p>
+
+                <p><em>Nella mia tenuta la sua storia finisce qui.</em></p>
+            </div>
+
+            <div class="letter-signature">
+                Con rispetto dovuto,<br>
+                <strong>Il nobile Edric von Thorn</strong>
+            </div>
+
+        </div>
+    </div>
+            <div style="text-align: justify; width: 90%; margin-left: 5%;">
+        <p style="margin-top: 300px;">«Il nobile ci ha pure sfrattati. Nemmeno una cazzo di tomba degna. Ho dovuto seppellirlo con le mie mani, sotto un vecchio salice. Lì le barbabietole crescono grosse, sai? Come se si nutrissero del dolore.»<br><br>
+            <img src="https://i.imgur.com/RE8tfHJ.png" style="width: 350px; display: block; margin: 0 auto; margin-bottom: 10px;">
+            <p class="Citazioni"><i>Lui è Edric, non era chissà quanto gentile, eh. Ma comunque era il suo lavoro.</i></p>
+            <img src="https://i.imgur.com/RukyaWF.png" style="width: 350px; display: block; margin: 0 auto; margin-bottom: 10px;">
+            <p class="Citazioni"><i>Mi ricordo quel giorno, non fu semplice, no. Ma alla fine la vita va avanti, non possiamo ancorarci sulle cose brutte.</i></p>
+        <i>Finisce la birra, tamburella con le dita sul boccale vuoto.</i>
+        «Adesso sto qua. Faccio il bracciante. Combatto. Vivo. Mi sono pure tatuato un po’, vedi?» mostra il braccio, dove i simboli si intrecciano come radici «Belli vero?»
+            <br><br>
+        «Ma non credere che la mia vita sia finita qui. Ho un piano. Voglio diventare il più grande coltivatore di barbabietole dell’Aengard. Ride la gente quando lo dico. Ma poi io sorrido, li guardo, e penso: “Voi coltivate solo invidia, io molto di più.”
+         E un giorno… un giorno la mia varietà crescerà ovunque. Una barbabietola resistente, buona, rossa come la passione e dura come la mia testa. La chiamerò la Bashthroat. Così tutti si ricorderanno di me. E di mio padre. E del sangue versato in questa terra.»
+            <br><br>
+        <i>Si alza in piedi, allarga le braccia verso l’oscurità oltre la finestra della taverna.</i>
+            <br><br>
+        «Perfino dalle crepe della strada possono crescere piante rigogliose.»
+            <br><br>
+            <img src="https://i.imgur.com/smnwHep.gif" style="width: 400px; display: block; margin: 0 auto; margin-bottom: 10px; margin-top: 30px;">
+                <img src="https://i.imgur.com/KJ5gIao.png" style="width: 440px; display: block; margin: 0 auto; margin-top: -426px; margin-bottom: 30px;">
+        <i>Poi ride, si scrolla di dosso la malinconia e torna a sedersi con la solita faccia da idiota saggia che tanto lo contraddistingue.</i>
+            <br><br>
+        «I miei obiettivi possono essere grandi, ma fidati un giorno tutti mi conosceranno.»
+            <br> «Ma fino ad allora, continuerò a fare ciò che posso. Ora tocca a te offrirmi da bere, ché sto per vincere un altro incontro e vorrei almeno essere ubriaco quando mi romperanno il naso.»
+</p>
+            </div>
+        <img src="https://i.imgur.com/k91DAgO.gif" class="gif">
+    </div>
+    </body>
+    <script>
+        const seal = document.getElementById('seal');
+        const envelope = document.getElementById('envelope');
+        const letter = document.getElementById('letter');
+        const hint = document.getElementById('hint');
+        let isOpened = false;
+        let shakeInterval;
+        let pulseTimeout;
+
+        function startInteractionEffects() {
+            // Inizia il pulsing del sigillo immediatamente
+            seal.classList.add('pulsing');
+            
+            // Primo shake dopo 2 secondi
+            setTimeout(() => {
+                if (!isOpened) {
+                    envelope.classList.add('shaking');
+                    setTimeout(() => {
+                        envelope.classList.remove('shaking');
+                    }, 1400);
+                }
+            }, 2000);
+            
+            // Shake periodico ogni 8 secondi
+            shakeInterval = setInterval(() => {
+                if (!isOpened) {
+                    envelope.classList.add('shaking');
+                    setTimeout(() => {
+                        envelope.classList.remove('shaking');
+                    }, 1400);
+                }
+            }, 8000);
+        }
+
+        seal.addEventListener('click', function() {
+            if (!isOpened) {
+                isOpened = true;
+                
+                // Ferma tutti gli effetti di interazione
+                clearInterval(shakeInterval);
+                seal.classList.remove('pulsing');
+                envelope.classList.remove('shaking');
+                hint.style.display = 'none';
+                
+                // Animazione rottura del sigillo
+                seal.classList.add('breaking');
+                
+                // Animazione apertura busta
+                setTimeout(() => {
+                    envelope.classList.add('opening');
+                }, 300);
+                
+                // Mostra la lettera
+                setTimeout(() => {
+                    letter.classList.add('visible');
+                }, 800);
+            }
+        });
+
+        // Effetto hover per il sigillo
+        seal.addEventListener('mouseenter', function() {
+            if (!isOpened) {
+                this.style.filter = 'brightness(1.2)';
+                // Riduce la frequenza del shake quando l'utente è sopra il sigillo
+                clearInterval(shakeInterval);
+                shakeInterval = setInterval(() => {
+                    if (!isOpened) {
+                        envelope.classList.add('shaking');
+                        setTimeout(() => {
+                            envelope.classList.remove('shaking');
+                        }, 1400);
+                    }
+                }, 15000); // Meno frequente quando in hover
+            }
+        });
+
+        seal.addEventListener('mouseleave', function() {
+            if (!isOpened) {
+                this.style.filter = 'brightness(1)';
+                // Ripristina la frequenza normale del shake
+                clearInterval(shakeInterval);
+                shakeInterval = setInterval(() => {
+                    if (!isOpened) {
+                        envelope.classList.add('shaking');
+                        setTimeout(() => {
+                            envelope.classList.remove('shaking');
+                        }, 1400);
+                    }
+                }, 8000);
+            }
+        });
+        // Animazione continua delle lettere del titolo
+        function startContinuousTitleAnimation() {
+            const letters = document.querySelectorAll('.letter');
+
+            function setupLetterAnimation() {
+                letters.forEach((letter, index) => {
+                    if (letter.classList.contains('space')) return;
+
+                    // Calcola nuovi valori casuali per ogni ciclo
+                    const flyX = (Math.random() - 0.5) * 400 + 'px';
+                    const flyY = (Math.random() - 0.5) * 300 + 'px';
+                    const flyRotate = (Math.random() - 0.5) * 720 + 'deg';
+
+                    const landX = (Math.random() - 0.5) * 600 + 'px';
+                    const landY = (Math.random() - 0.5) * 400 + 'px';
+                    const landRotate = (Math.random() - 0.5) * 180 + 'deg';
+
+                    // Imposta le variabili CSS custom per ogni lettera
+                    letter.style.setProperty('--fly-x', flyX);
+                    letter.style.setProperty('--fly-y', flyY);
+                    letter.style.setProperty('--fly-rotate', flyRotate);
+                    letter.style.setProperty('--land-x', landX);
+                    letter.style.setProperty('--land-y', landY);
+                    letter.style.setProperty('--land-rotate', landRotate);
+
+                    // Avvia l'animazione continua con un piccolo ritardo per ogni lettera
+                    setTimeout(() => {
+                        letter.classList.add('continuous-animation');
+                    }, index * 100);
+                });
+            }
+
+            // Attendi 3 secondi prima di iniziare l'animazione
+            setTimeout(() => {
+                setupLetterAnimation();
+
+                // Cambia i valori casuali ogni ciclo (ogni 8 secondi)
+                setInterval(() => {
+                    letters.forEach((letter) => {
+                        if (letter.classList.contains('space')) return;
+
+                        // Nuovi valori casuali
+                        const flyX = (Math.random() - 0.5) * 400 + 'px';
+                        const flyY = (Math.random() - 0.5) * 300 + 'px';
+                        const flyRotate = (Math.random() - 0.5) * 720 + 'deg';
+
+                        const landX = (Math.random() - 0.5) * 600 + 'px';
+                        const landY = (Math.random() - 0.5) * 400 + 'px';
+                        const landRotate = (Math.random() - 0.5) * 180 + 'deg';
+
+                        // Aggiorna le variabili CSS
+                        letter.style.setProperty('--fly-x', flyX);
+                        letter.style.setProperty('--fly-y', flyY);
+                        letter.style.setProperty('--fly-rotate', flyRotate);
+                        letter.style.setProperty('--land-x', landX);
+                        letter.style.setProperty('--land-y', landY);
+                        letter.style.setProperty('--land-rotate', landRotate);
+                    });
+                }, 8000);
+
+            }, 3000);
+        }
+
+        // Modifica il window.addEventListener esistente
+        window.addEventListener('load', () => {
+            startInteractionEffects();
+            startContinuousTitleAnimation();
+        });
+
+        // Modifica il window.addEventListener esistente per includere l'animazione del titolo
+        window.addEventListener('load', () => {
+            startInteractionEffects();
+            startTitleAnimation();
+        });
+
+        // Avvia gli effetti di interazione quando la pagina è caricata
+        window.addEventListener('load', startInteractionEffects);
+    </script>
+</html>
