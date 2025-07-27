@@ -728,6 +728,19 @@
 
             }, 3000);
         }
+ // Modifica il window.addEventListener esistente
+        window.addEventListener('load', () => {
+            startInteractionEffects();
+            startContinuousTitleAnimation();
+        });
 
+        // Modifica il window.addEventListener esistente per includere l'animazione del titolo
+        window.addEventListener('load', () => {
+            startInteractionEffects();
+            startTitleAnimation();
+        });
+
+        // Avvia gli effetti di interazione quando la pagina è caricata
+        window.addEventListener('load', startInteractionEffects);
     </script>
 </html>
